@@ -1,88 +1,113 @@
-*{
+* {
   box-sizing: border-box;
-}
-
-body{
-  background-color: #17181f;
-  color: #ddd;
-}
-
-main{
-  max-width: 50%;
-  margin: 100px auto;
-}
-h1{
-  text-align: center;
-  color: #fff;
   margin: 0;
+  padding: 0;
 }
-form{
+
+body {
+  background-color: #17181f; /* Dark background color for the body */
+  color: #ddd; /* Light text color for the body */
+  font-family: Arial, sans-serif; /* Example font family */
+}
+
+main {
+  max-width: 700px;
+  margin: 100px auto; /* Center the main element with top and bottom margin */
+  background-color: #fff; /* White background color for the main container */
+  padding: 20px; /* Add padding inside the main container */
+  border-radius: 5px; /* Optional: Add rounded corners to the container */
+}
+
+h1 {
+  text-align: center;
+  color: #000; /* Black text color for the heading */
+  margin-bottom: 20px; /* Optional: Add bottom margin to the heading */
+  font-size: 2.5rem;
+}
+
+h1 span {
+  font-size: 1rem;
+  vertical-align: top;
+  display: inline-block;
+  margin-top: 10px;
+  color: #888; /* Example color for the span text */
+}
+
+form {
   margin-top: 20px;
 }
-form input{
+
+form .basic {
+  display: flex;
+  gap: 10px; /* Adjust the gap between inputs */
+}
+
+form input,
+form button {
   width: 100%;
   background-color: transparent;
   color: #ddd;
-  border: 2PX solid #30313D;
-  padding: 2PX 5px;
+  border: 2px solid #30313d; /* Dark border color for inputs and button */
+  padding: 10px; /* Increase padding for better spacing */
   border-radius: 5px;
-  padding-bottom: 5px;
-  margin-bottom: 5px;
-}
-form div.basic{
-  display: flex;
-  gap: 5px;
-  margin-bottom: 5px
+  margin-bottom: 10px; /* Optional: Add bottom margin to inputs */
 }
 
-form input[type="datetime-local"]{
+form input[type="datetime-local"] {
   color: #777;
 }
 
-form button{
-  width: 100%;
-  margin-top: 5px;
-  border: 0;
-  border-radius: 5px;
-  padding: 5px;
-  background-color: #ddd;
+form button {
+  background-color: #000; /* Light background color for the button */
+  cursor: pointer;
 }
 
-div.transactions{
-  margin-top: 5px;
+.transactions {
+  margin-top: 20px;
 }
 
-div.transaction{
+.transaction {
   display: flex;
   justify-content: space-between;
-  padding: 5px 0;
-  border-top: 1px solid #30323d;
-}
-div.transaction:first-child{
-  border-top: 0;
+  padding: 10px 0; /* Adjust padding for better spacing */
+  border-top: 1px solid #30323d; /* Dark border color between transactions */
 }
 
-div.transaction div.name{
-  font-size:1rem;
-}
-div.transaction div.description{
-  font-size:.7rem;
-  color: #888;
+.transaction:first-child {
+  border-top: 0; /* Remove top border from the first transaction */
 }
 
-div.right{
+.transaction .left {
+  flex: 1; /* Left side takes up 50% of space */
+}
+
+.transaction .name {
+  font-size: 1.1rem;
+  color: #000; /* Black color for transaction name */
+}
+
+.transaction .description {
+  font-size: 0.9rem;
+  color: #888; /* Grey color for transaction description */
+}
+
+.transaction .right {
   text-align: right;
 }
 
-div.price.green{
-color: #1c1;
+.transaction .price {
+  font-weight: bold;
 }
 
-div.price.red{
-  color: #c11;
+.transaction .price.green {
+  color: #1c1; /* Green color for positive prices */
 }
 
-div.transaction div.datetime{
- font-size: .7rem;
- color: #888; 
+.transaction .price.red {
+  color: #c11; /* Red color for negative prices */
+}
+
+.transaction .datetime {
+  font-size: 0.9rem;
+  color: #888; /* Grey color for datetime */
 }

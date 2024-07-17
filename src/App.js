@@ -6,6 +6,7 @@ function App() {
   const [datetime, setdateTime] = useState("");
   const [description, setDescription] = useState("");
   const [data, setData] = useState([]);
+  const [value,setValue]=useState("")
 
   const fetchData = async () => {
     const url = process.env.REACT_APP_API_URL + "/transactions";
@@ -54,10 +55,18 @@ function App() {
     setdateTime("");
   };
 
+  let res=data.reduce((acc,num)=>{
+    return acc+num.price
+  },0);
+
+  res=res.toFixed(2);
+  const fraction=res.split('.')[1];
+  res=res.split('.')[0];
+
   return (
     <main>
       <h1>
-        $400 <span>.00</span>
+        ${res}<span>.{fraction}</span>
       </h1>
 
       <form action="" onSubmit={addTransaction}>
@@ -66,7 +75,7 @@ function App() {
             type="text"
             name=""
             id=""
-            placeholder={"+200 new samsung tv"}
+            placeholder={"+200 New samsung tv"}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -81,7 +90,7 @@ function App() {
             type="text"
             name=""
             id=""
-            placeholder={"description"}
+            placeholder={"Description"}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -89,20 +98,27 @@ function App() {
         <button type="submit">Add new Transaction</button>
       </form>
       <div className="transactions">
-        {data.map((singleData) => {
-          return (
-            <div className="transaction" key={singleData._id}>
-              <div className="left">
-                <div className="name">{singleData.name}</div>
-                <div className="description">{singleData.description}</div>
+        {data.length &&
+          data.map((singleData) => {
+            return (
+              <div className="transaction" key={singleData._id}>
+                <div className="left">
+                  <div className="name">Sub: {singleData.name}</div>
+                  <div className="description">{singleData.description}</div>
+                </div>
+                <div className="right">
+                  <div
+                    className={
+                      "price" + (singleData.price < 0 ? " red " : " green ")
+                    }
+                  >
+                    ${singleData.price}
+                  </div>
+                  <div className="datetime">Date: {singleData.datetime}</div>
+                </div>
               </div>
-              <div className="right">
-                <div className="price green">{singleData.price}</div>
-                <div className="datetime"> {singleData.datetime}</div>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </main>
   );
