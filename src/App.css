@@ -6,7 +6,7 @@
 
 body {
   background-color: #17181f; /* Dark background color for the body */
-  color: #ddd; /* Light text color for the body */
+  color: black; /* Light text color for the body */
   font-family: Arial, sans-serif; /* Example font family */
 }
 
@@ -42,7 +42,15 @@ form .basic {
   gap: 10px; /* Adjust the gap between inputs */
 }
 
-form input,
+form input{
+  width: 100%;
+  background-color: transparent;
+  color: black;
+  border: 2px solid #30313d; /* Dark border color for inputs and button */
+  padding: 10px; /* Increase padding for better spacing */
+  border-radius: 5px;
+  margin-bottom: 10px; /* Optional: Add bottom margin to inputs */
+}
 form button {
   width: 100%;
   background-color: transparent;
