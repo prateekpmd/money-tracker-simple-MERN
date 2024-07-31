@@ -6,7 +6,7 @@ function App() {
   const [datetime, setdateTime] = useState("");
   const [description, setDescription] = useState("");
   const [data, setData] = useState([]);
-  const [value,setValue]=useState("")
+ 
 
   const fetchData = async () => {
     const url = process.env.REACT_APP_API_URL + "/transactions";
