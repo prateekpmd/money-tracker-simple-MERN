@@ -14,15 +14,9 @@ app.get("/api/test", (req, res) => {
 });
 
 app.post("/api/transaction", async (req, res) => {
-  const { name, description, datetime,price } = req.body;
+  const { name, description, datetime, price } = req.body;
   console.log(name);
   try {
-   await  mongoose.connect(process.env.MONGO_URI);
-    const db = mongoose.connection;
-    db.on("error", console.error.bind(console, "MongoDB connection error:"));
-    db.once("open", () => {
-      console.log("Connected to MongoDB successfully");
-    });
     const data = await Transacation.create({
       name,
       description,
@@ -37,19 +31,30 @@ app.post("/api/transaction", async (req, res) => {
 
 app.get("/api/transactions", async (req, res) => {
   try {
-   await  mongoose.connect(process.env.MONGO_URI);
-      const db = mongoose.connection;
+    await mongoose.connect(process.env.MONGO_URI);
+    const db = mongoose.connection;
     db.on("error", console.error.bind(console, "MongoDB connection error:"));
     db.once("open", () => {
       console.log("Connected to MongoDB successfully");
     });
-    const data =await Transacation.find();
+    const data = await Transacation.find();
     res.json(data);
   } catch (error) {
     res.json(error);
   }
 });
 
-app.listen(3001, () => {
-  console.log("server woriking");
-});
+const startServer = async () => {
+  await mongoose.connect(process.env.MONGO_URI);
+  const db = mongoose.connection;
+  db.on("error", console.error.bind(console, "MongoDB connection error:"));
+  db.once("open", () => {
+    console.log("Connected to MongoDB successfully");
+  });
+
+  app.listen(3001, () => {
+    console.log("server woriking");
+  });
+};
+
+startServer();
