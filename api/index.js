@@ -30,8 +30,6 @@ app.use(express.json());
   .catch(console.error);
 
 
-  console.log('Mongo URI:', process.env.MONGO_URI); 
-
 app.get("/", (req, res) => {
   res.json("hello");
 });
