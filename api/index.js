@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.post("/api/transaction", async (req, res) => {
+app.post("/transaction", async (req, res) => {
   const { name, description, datetime, price } = req.body;
   console.log(name);
   
@@ -60,7 +60,7 @@ app.post("/api/transaction", async (req, res) => {
   }
 });
 
-app.get("/api/transactions", async (req, res) => {
+app.get("/transactions", async (req, res) => {
   try {
     const data = await Transaction.find();
     res.status(200).json({
