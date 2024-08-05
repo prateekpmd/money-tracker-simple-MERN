@@ -1,60 +1,86 @@
+require("dotenv").config({ path: "../.env" });
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const Transacation = require("./models/Transaction.js");
+const Transaction = require("./models/Transaction.js");
 const mongoose = require("mongoose");
-require("dotenv").config();
 
-app.use(cors());
+
+const corsOptions = {
+  origin:[process.env.FRONTEND_URL], // Replace with your actual frontend URL
+  optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+  methods: 'GET,POST,PUT,DELETE', // Specify allowed methods as needed
+   credentials: true, // If your frontend needs to send cookies or credentials with the request
+   allowedHeaders: 'Content-Type,Authorization', // Specify allowed headers
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
-app.get("/api/test", (req, res) => {
+ mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 60000,
+    poolSize: 10,
+    family: 4,
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(console.error);
+
+
+  console.log('Mongo URI:', process.env.MONGO_URI); 
+
+app.get("/", (req, res) => {
   res.json("hello");
 });
+
 
 app.post("/api/transaction", async (req, res) => {
   const { name, description, datetime, price } = req.body;
   console.log(name);
+  
   try {
-    const data = await Transacation.create({
+    const data = await Transaction.create({
       name,
       description,
       price,
       datetime,
     });
-    res.json(data);
+    res.status(201).json({
+      success: true,
+      message: 'Transaction created successfully',
+      data: data,
+    });
   } catch (error) {
-    res.json(error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while creating the transaction',
+      error: error.message,
+    });
   }
 });
 
 app.get("/api/transactions", async (req, res) => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    const db = mongoose.connection;
-    db.on("error", console.error.bind(console, "MongoDB connection error:"));
-    db.once("open", () => {
-      console.log("Connected to MongoDB successfully");
+    const data = await Transaction.find();
+    res.status(200).json({
+      success: true,
+      message: 'Transactions retrieved successfully',
+      data: data,
     });
-    const data = await Transacation.find();
-    res.json(data);
   } catch (error) {
-    res.json(error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while retrieving the transactions',
+      error: error.message,
+    });
   }
+})
+
+console.log(process.env.PORT);
+const PORT = process.env.PORT ;
+app.listen(PORT, () => {
+  console.log("Server is running on port 3001");
 });
-
-const startServer = async () => {
-  await mongoose.connect(process.env.MONGO_URI);
-  const db = mongoose.connection;
-  db.on("error", console.error.bind(console, "MongoDB connection error:"));
-  db.once("open", () => {
-    console.log("Connected to MongoDB successfully");
-  });
-
-  app.listen(3001, () => {
-    console.log("server woriking");
-  });
-};
-
-startServer();
