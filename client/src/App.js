@@ -30,7 +30,7 @@ function App() {
 
   const addTransaction = async (e) => {
     e.preventDefault();
-    const url = process.env.REACT_APP_API_URL + "/api/transaction";
+    const url = process.env.REACT_APP_API_URL + "/transaction";
     console.log(url);
     const price = name.split(" ")[0];
     const response = await fetch(url, {
