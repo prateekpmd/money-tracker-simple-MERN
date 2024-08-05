@@ -14,7 +14,7 @@
             "src":"/(.*)",
             "dest":"/",
             "headers": {
-                "Access-Control-Allow-Origin": "https://project-client.vercel.app",
+                "Access-Control-Allow-Origin": "https://money-tracker-simple-mern-frontend.vercel.app",
                 "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
                 "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept, Authorization",
                 "Access-Control-Allow-Credentials": "true"
