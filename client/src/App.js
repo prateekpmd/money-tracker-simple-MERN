@@ -9,7 +9,7 @@ function App() {
  
   
   const fetchData = async () => {
-    const url = process.env.REACT_APP_API_URL + "/api/transactions";
+    const url = process.env.REACT_APP_API_URL + "/transactions";
     try {
       // Perform data fetching
       const response = await fetch(url);
@@ -27,8 +27,6 @@ function App() {
     fetchData();
   }, []);
 
-  const url = process.env.REACT_APP_API_URL + "/api/transaction";
-  console.log(url);
 
   const addTransaction = async (e) => {
     e.preventDefault();
