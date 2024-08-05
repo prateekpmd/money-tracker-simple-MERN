@@ -27,6 +27,9 @@ function App() {
     fetchData();
   }, []);
 
+  const url = process.env.REACT_APP_API_URL + "/api/transaction";
+  console.log(url);
+
   const addTransaction = async (e) => {
     e.preventDefault();
     const url = process.env.REACT_APP_API_URL + "/api/transaction";
